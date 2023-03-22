@@ -19,7 +19,7 @@ package v1alpha1
 import (
 	"fmt"
 
-	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 )

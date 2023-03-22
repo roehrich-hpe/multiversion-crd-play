@@ -59,7 +59,6 @@ type DesertStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
-//+kubebuilder:storageversion
 
 // Desert is the Schema for the deserts API
 type Desert struct {
