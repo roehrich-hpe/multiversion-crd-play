@@ -2,4 +2,5 @@
 resources:
 - dws_v1alpha1_desert.yaml
 - dws_v1alpha2_desert.yaml
+- dws_v1alpha3_desert.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

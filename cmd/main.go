@@ -33,6 +33,7 @@ import (
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha3 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 	"github.com/roehrich-hpe/multiversion-crd-play/internal/controller"
 	//+kubebuilder:scaffold:imports
 )
@@ -47,6 +48,7 @@ func init() {
 
 	utilruntime.Must(dwsv1alpha1.AddToScheme(scheme))
 	utilruntime.Must(dwsv1alpha.AddToScheme(scheme))
+	utilruntime.Must(dwsv1alpha3.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
