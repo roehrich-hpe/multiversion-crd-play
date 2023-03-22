@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+- dws_v1alpha1_desert.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

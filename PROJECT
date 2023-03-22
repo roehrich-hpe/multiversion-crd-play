@@ -7,4 +7,14 @@ layout:
 - go.kubebuilder.io/v4-alpha
 projectName: multiversion-crd-play
 repo: github.com/roehrich-hpe/multiversion-crd-play
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: cray.hpe.com
+  group: dws
+  kind: Desert
+  path: github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1
+  version: v1alpha1
 version: "3"
