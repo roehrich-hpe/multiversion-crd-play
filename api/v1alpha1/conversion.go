@@ -17,12 +17,15 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"fmt"
+
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 var desertlog = logf.Log.WithName("desert-v1alpha1")
+var daysAnnotation = "dws.cray.hpe.com/days"
 
 func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	desertlog.Info("Convert To Hub")
@@ -36,6 +39,25 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 
 	dst.Status.Traveler = src.Status.Traveler
 	dst.Status.WaterLevel = src.Status.WaterLevel
+
+	// If the down-rev resource has been holding Spec.Days in an
+	// annotation, then copy it into the correct field in the hub.
+	annotations := src.GetAnnotations()
+	data, ok := annotations[daysAnnotation]
+	if !ok {
+		// no days value to preserve
+		return nil
+	}
+	days := 0
+	_, err := fmt.Sscanf(data, "%d", &days)
+	if err != nil {
+		desertlog.Info("unable to convert days", "%v", err)
+		return err
+	}
+	dst.Spec.Days = days
+	// Delete the annotation, so it isn't carried to the hub.
+	delete(annotations, daysAnnotation)
+	src.SetAnnotations(annotations)
 
 	return nil
 }
@@ -52,6 +74,14 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 
 	dst.Status.Traveler = src.Status.Traveler
 	dst.Status.WaterLevel = src.Status.WaterLevel
+
+	// Save the hub's Spec.Days in an annotation on the down-rev resource.
+	annotations := dst.GetAnnotations()
+	if annotations == nil {
+		annotations = map[string]string{}
+	}
+	annotations[daysAnnotation] = fmt.Sprintf("%d", src.Spec.Days)
+	dst.SetAnnotations(annotations)
 
 	return nil
 }

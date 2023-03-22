@@ -38,6 +38,11 @@ type DesertSpec struct {
 	// +kubebuilder:validation:Enum:=Arriving;Landed;Surviving;Critical
 	// +kubebuilder:default:=Arriving
 	Traveler string `json:"traveler,omitempty"`
+
+	// Set length of stay.
+	// +kubebuilder:validation:Minimum:=1
+	// +kubebuilder:default:=5
+	Days int `json:"days,omitempty"`
 }
 
 // DesertStatus defines the observed state of Desert
