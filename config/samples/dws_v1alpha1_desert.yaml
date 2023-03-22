@@ -7,6 +7,7 @@ metadata:
     app.kubernetes.io/part-of: multiversion-crd-play
     app.kubernetes.io/managed-by: kustomize
     app.kubernetes.io/created-by: multiversion-crd-play
-  name: desert-sample
+  name: namib
 spec:
-  # TODO(user): Add fields here
+  type: HotAndDry
+

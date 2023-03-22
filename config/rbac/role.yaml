@@ -1,0 +1,33 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - dws.cray.hpe.com
+  resources:
+  - deserts
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - dws.cray.hpe.com
+  resources:
+  - deserts/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - dws.cray.hpe.com
+  resources:
+  - deserts/status
+  verbs:
+  - get
+  - patch
+  - update

@@ -47,9 +47,40 @@ type DesertReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.14.1/pkg/reconcile
 func (r *DesertReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := log.FromContext(ctx)
+	log.Info("Reconciling Desert")
 
-	// TODO(user): your logic here
+	desert := &dwsv1alpha1.Desert{}
+	if err := r.Get(ctx, req.NamespacedName, desert); err != nil {
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	need_update := false
+
+	if desert.Spec.Traveler != desert.Status.Traveler {
+		desert.Status.Traveler = desert.Spec.Traveler
+		log.Info("adjust traveler", "status", desert.Status.Traveler)
+		need_update = true
+	} else if desert.Status.Traveler == "Surviving" && desert.Status.WaterLevel > 50 {
+		desert.Status.WaterLevel = 50
+		log.Info("adjust water", "level", desert.Status.WaterLevel)
+		need_update = true
+	} else if desert.Status.Traveler == "Critical" && desert.Status.WaterLevel > 10 {
+		desert.Status.WaterLevel = 10
+		log.Info("adjust water", "level", desert.Status.WaterLevel)
+		need_update = true
+	} else if desert.Status.Traveler == "Landed" && desert.Status.WaterLevel < 100 {
+		desert.Status.WaterLevel = 100
+		log.Info("fill water", "level", desert.Status.WaterLevel)
+		need_update = true
+	}
+
+	if need_update {
+		if err := r.Status().Update(ctx, desert); err != nil {
+			log.Error(err, "unable to update desert status")
+			return ctrl.Result{}, err
+		}
+	}
 
 	return ctrl.Result{}, nil
 }
