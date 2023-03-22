@@ -32,7 +32,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
-	dwsv1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 	"github.com/roehrich-hpe/multiversion-crd-play/internal/controller"
 	//+kubebuilder:scaffold:imports
 )
@@ -46,7 +46,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(dwsv1alpha1.AddToScheme(scheme))
-	utilruntime.Must(dwsv1alpha2.AddToScheme(scheme))
+	utilruntime.Must(dwsv1alpha.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -98,7 +98,7 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Desert")
 		os.Exit(1)
 	}
-	if err = (&dwsv1alpha1.Desert{}).SetupWebhookWithManager(mgr); err != nil {
+	if err = (&dwsv1alpha.Desert{}).SetupWebhookWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create webhook", "webhook", "Desert")
 		os.Exit(1)
 	}
