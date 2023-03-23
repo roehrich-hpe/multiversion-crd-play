@@ -23,6 +23,7 @@ import (
 )
 
 var desertlog = logf.Log.WithName("desert-v1alpha2")
+var toolAnnotation = "dws.cray.hpe.com/tool"
 
 func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	desertlog.Info("Convert To Hub")
@@ -37,6 +38,19 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 
 	dst.Status.Traveler = src.Status.Traveler
 	dst.Status.WaterLevel = src.Status.WaterLevel
+
+	// If the down-rev resource has been holding Spec.Tool in an
+	// annotation, then copy it into the correct field in the hub.
+	annotations := src.GetAnnotations()
+	toolData, toolOk := annotations[toolAnnotation]
+	if !toolOk {
+		// no tool value to preserve
+		return nil
+	}
+	dst.Spec.Tool = toolData
+	// Delete the annotation, so it isn't carried to the hub.
+	delete(annotations, toolAnnotation)
+	src.SetAnnotations(annotations)
 
 	return nil
 }
@@ -54,6 +68,14 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 
 	dst.Status.Traveler = src.Status.Traveler
 	dst.Status.WaterLevel = src.Status.WaterLevel
+
+	// Save the hub's Spec.Tool in an annotation on the down-rev resource.
+	annotations := dst.GetAnnotations()
+	if annotations == nil {
+		annotations = map[string]string{}
+	}
+	annotations[toolAnnotation] = src.Spec.Tool
+	dst.SetAnnotations(annotations)
 
 	return nil
 }

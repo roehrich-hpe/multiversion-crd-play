@@ -26,6 +26,7 @@ import (
 
 var desertlog = logf.Log.WithName("desert-v1alpha1")
 var daysAnnotation = "dws.cray.hpe.com/days"
+var toolAnnotation = "dws.cray.hpe.com/tool"
 
 func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	desertlog.Info("Convert To Hub")
@@ -42,21 +43,30 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 
 	// If the down-rev resource has been holding Spec.Days in an
 	// annotation, then copy it into the correct field in the hub.
+	// Same for Spec.Tool.
 	annotations := src.GetAnnotations()
-	data, ok := annotations[daysAnnotation]
-	if !ok {
-		// no days value to preserve
+	dayData, dayOk := annotations[daysAnnotation]
+	toolData, toolOk := annotations[toolAnnotation]
+	if !dayOk && !toolOk {
+		// no days or tool values to preserve
 		return nil
 	}
-	days := 0
-	_, err := fmt.Sscanf(data, "%d", &days)
-	if err != nil {
-		desertlog.Info("unable to convert days", "%v", err)
-		return err
+	if dayOk {
+		days := 0
+		_, err := fmt.Sscanf(dayData, "%d", &days)
+		if err != nil {
+			desertlog.Info("unable to convert days", "%v", err)
+			return err
+		}
+		dst.Spec.Days = days
+		// Delete the annotation, so it isn't carried to the hub.
+		delete(annotations, daysAnnotation)
 	}
-	dst.Spec.Days = days
-	// Delete the annotation, so it isn't carried to the hub.
-	delete(annotations, daysAnnotation)
+	if toolOk {
+		dst.Spec.Tool = toolData
+		// Delete the annotation, so it isn't carried to the hub.
+		delete(annotations, toolAnnotation)
+	}
 	src.SetAnnotations(annotations)
 
 	return nil
@@ -76,11 +86,13 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 	dst.Status.WaterLevel = src.Status.WaterLevel
 
 	// Save the hub's Spec.Days in an annotation on the down-rev resource.
+	// Same for Spec.Tool.
 	annotations := dst.GetAnnotations()
 	if annotations == nil {
 		annotations = map[string]string{}
 	}
 	annotations[daysAnnotation] = fmt.Sprintf("%d", src.Spec.Days)
+	annotations[toolAnnotation] = src.Spec.Tool
 	dst.SetAnnotations(annotations)
 
 	return nil
