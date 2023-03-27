@@ -17,13 +17,13 @@ limitations under the License.
 package v1alpha2
 
 import (
+	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1" // for names of annotations
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 var desertlog = logf.Log.WithName("desert-v1alpha2")
-var toolAnnotation = "dws.cray.hpe.com/tool"
 
 func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	desertlog.Info("Convert To Hub")
@@ -42,14 +42,14 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	// If the down-rev resource has been holding Spec.Tool in an
 	// annotation, then copy it into the correct field in the hub.
 	annotations := src.GetAnnotations()
-	toolData, toolOk := annotations[toolAnnotation]
+	toolData, toolOk := annotations[dwsv1alpha1.ToolAnnotation]
 	if !toolOk {
 		// no tool value to preserve
 		return nil
 	}
 	dst.Spec.Tool = toolData
 	// Delete the annotation, so it isn't carried to the hub.
-	delete(annotations, toolAnnotation)
+	delete(annotations, dwsv1alpha1.ToolAnnotation)
 	src.SetAnnotations(annotations)
 
 	return nil
@@ -74,7 +74,7 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 	if annotations == nil {
 		annotations = map[string]string{}
 	}
-	annotations[toolAnnotation] = src.Spec.Tool
+	annotations[dwsv1alpha1.ToolAnnotation] = src.Spec.Tool
 	dst.SetAnnotations(annotations)
 
 	return nil

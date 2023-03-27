@@ -25,8 +25,8 @@ import (
 )
 
 var desertlog = logf.Log.WithName("desert-v1alpha1")
-var daysAnnotation = "dws.cray.hpe.com/days"
-var toolAnnotation = "dws.cray.hpe.com/tool"
+var DaysAnnotation = "dws.cray.hpe.com/days"
+var ToolAnnotation = "dws.cray.hpe.com/tool"
 
 func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	desertlog.Info("Convert To Hub")
@@ -45,8 +45,8 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	// annotation, then copy it into the correct field in the hub.
 	// Same for Spec.Tool.
 	annotations := src.GetAnnotations()
-	dayData, dayOk := annotations[daysAnnotation]
-	toolData, toolOk := annotations[toolAnnotation]
+	dayData, dayOk := annotations[DaysAnnotation]
+	toolData, toolOk := annotations[ToolAnnotation]
 	if !dayOk && !toolOk {
 		// no days or tool values to preserve
 		return nil
@@ -60,12 +60,12 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 		}
 		dst.Spec.Days = days
 		// Delete the annotation, so it isn't carried to the hub.
-		delete(annotations, daysAnnotation)
+		delete(annotations, DaysAnnotation)
 	}
 	if toolOk {
 		dst.Spec.Tool = toolData
 		// Delete the annotation, so it isn't carried to the hub.
-		delete(annotations, toolAnnotation)
+		delete(annotations, ToolAnnotation)
 	}
 	src.SetAnnotations(annotations)
 
@@ -91,8 +91,8 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 	if annotations == nil {
 		annotations = map[string]string{}
 	}
-	annotations[daysAnnotation] = fmt.Sprintf("%d", src.Spec.Days)
-	annotations[toolAnnotation] = src.Spec.Tool
+	annotations[DaysAnnotation] = fmt.Sprintf("%d", src.Spec.Days)
+	annotations[ToolAnnotation] = src.Spec.Tool
 	dst.SetAnnotations(annotations)
 
 	return nil
