@@ -59,32 +59,18 @@ var _ = BeforeSuite(func() {
 	ctx, cancel = context.WithCancel(context.TODO())
 
 	By("bootstrapping test environment")
-	testEnv = &envtest.Environment{
-		WebhookInstallOptions: envtest.WebhookInstallOptions{
-			Paths: []string{filepath.Join("..", "..", "config", "webhook")},
-		},
 
-		// XXX
-		// This is slipping right past config/crd/kustomization.yaml, which would
-		// add the conversion webhook configuration to the CRDs.
-		// See the call to SetupWebhookWithManager() below.
-
-		CRDDirectoryPaths: []string{filepath.Join("..", "..", "config", "crd", "bases")},
-
-		// XXX
-		// Try using CRDInstallOptions. This has comments
-		// in it about conversion webhooks:
-		//CRDInstallOptions: envtest.CRDInstallOptions{},
-
-		ErrorIfCRDPathMissing: true,
-	}
+	// XXX
+	// See https://github.com/kubernetes-sigs/controller-runtime/issues/1882
+	// about getting the conversion webhook to register properly.
+	// Begin by relocating the code that builds the scheme, so it happens
+	// before calling envtest.Start().
+	// Then add the scheme to envtest.CRDInstallOptions.
+	//
+	// You need controller-runtime v0.9.0 or later to get conversion webhooks
+	// to work in envtest.
 
 	var err error
-	// cfg is defined in this file globally.
-	cfg, err = testEnv.Start()
-	Expect(err).NotTo(HaveOccurred())
-	Expect(cfg).NotTo(BeNil())
-
 	err = dwsv1alpha1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
@@ -95,6 +81,26 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 
 	//+kubebuilder:scaffold:scheme
+
+	testEnv = &envtest.Environment{
+		WebhookInstallOptions: envtest.WebhookInstallOptions{
+			Paths: []string{filepath.Join("..", "..", "config", "webhook")},
+		},
+
+		CRDDirectoryPaths: []string{filepath.Join("..", "..", "config", "crd", "bases")},
+
+		CRDInstallOptions: envtest.CRDInstallOptions{
+			// XXX This adds the conversion webhook configuration to the CRDs.
+			Scheme: scheme.Scheme,
+		},
+
+		ErrorIfCRDPathMissing: true,
+	}
+
+	// cfg is defined in this file globally.
+	cfg, err = testEnv.Start()
+	Expect(err).NotTo(HaveOccurred())
+	Expect(cfg).NotTo(BeNil())
 
 	k8sClient, err = client.New(cfg, client.Options{Scheme: scheme.Scheme})
 	Expect(err).NotTo(HaveOccurred())
@@ -114,12 +120,6 @@ var _ = BeforeSuite(func() {
 		Scheme: k8sManager.GetScheme(),
 	}).SetupWithManager(k8sManager)
 	Expect(err).ToNot(HaveOccurred())
-
-	// XXX
-	// This is recognizing and registering the conversion webhook as well,
-	// but since the CRDs do not have the conversion configuration, the
-	// conversion webhook is not being called.
-	// See envtest.Environment{} above.
 
 	err = (&dwsv1alpha.Desert{}).SetupWebhookWithManager(k8sManager)
 	Expect(err).ToNot(HaveOccurred())

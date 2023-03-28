@@ -28,7 +28,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
-	//dwsv1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 	dwsv1alphaHub "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 )
 
@@ -55,22 +55,31 @@ var _ = Describe("Desert Conversion Test", func() {
 		Expect(k8sClient.Create(context.TODO(), desertHub)).To(Succeed())
 	})
 
-	PIt("reads a desert hub resource via the v1alpha1 spoke", func() {
-		wantedKeysV1 := map[string]string{
-			dwsv1alpha1.DaysAnnotation: "42",
-			dwsv1alpha1.ToolAnnotation: "Knife",
-		}
+	It("reads a desert hub resource via the v1alpha1 spoke", func() {
 		desertV1 := &dwsv1alpha1.Desert{}
-
-		// XXX
-		// This fails because, while the conversion webhook is registered,
-		// the CRDs do not have the conversion webhook configuration.
-		// See the notes in envtest.Environment{} in suite_test.go.
-
-		Eventually(func(g Gomega) map[string]string {
+		Eventually(func(g Gomega) {
 			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desertHub), desertV1)).To(Succeed())
-			return desertV1.GetAnnotations()
-		}).Should(ContainElements(wantedKeysV1))
+			anno := desertV1.GetAnnotations()
+			g.Expect(anno).To(HaveLen(2))
+			g.Expect(anno).Should(HaveKeyWithValue(dwsv1alpha1.DaysAnnotation, "42"))
+			g.Expect(anno).Should(HaveKeyWithValue(dwsv1alpha1.ToolAnnotation, "Knife"))
+		}).Should(Succeed())
 	})
 
+	It("reads a desert hub resource via the v1alpha2 spoke", func() {
+		desertV2 := &dwsv1alpha2.Desert{}
+		Eventually(func(g Gomega) {
+			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desertHub), desertV2)).To(Succeed())
+			anno := desertV2.GetAnnotations()
+			g.Expect(anno).To(HaveLen(1))
+			g.Expect(anno).Should(HaveKeyWithValue(dwsv1alpha1.ToolAnnotation, "Knife"))
+		}).Should(Succeed())
+	})
+
+	It("reads a desert hub resource via the hub", func() {
+		Eventually(func(g Gomega) {
+			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desertHub), desertHub)).To(Succeed())
+			g.Expect(desertHub.GetAnnotations()).To(HaveLen(0))
+		}).Should(Succeed())
+	})
 })
