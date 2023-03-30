@@ -32,6 +32,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
+	dwsv1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 	"github.com/roehrich-hpe/multiversion-crd-play/internal/controller"
 	//+kubebuilder:scaffold:imports
 )
@@ -45,6 +46,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(dwsv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(dwsv1alpha2.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
