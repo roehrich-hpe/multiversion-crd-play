@@ -27,23 +27,23 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 )
 
 var _ = Describe("Desert Controller Test", func() {
 
 	var (
-		desert *dwsv1alpha1.Desert
+		desert *dwsv1alpha.Desert
 	)
 
 	BeforeEach(func() {
 		id := uuid.NewString()[0:8]
-		desert = &dwsv1alpha1.Desert{
+		desert = &dwsv1alpha.Desert{
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      id,
 				Namespace: corev1.NamespaceDefault,
 			},
-			Spec: dwsv1alpha1.DesertSpec{
+			Spec: dwsv1alpha.DesertSpec{
 				Type: "Semiarid",
 			},
 		}

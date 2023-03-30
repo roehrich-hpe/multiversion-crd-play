@@ -30,16 +30,31 @@ type DesertSpec struct {
 
 	// Foo is an example field of Desert. Edit desert_types.go to remove/update
 	Foo string `json:"foo,omitempty"`
+
+	// https://www.worldatlas.com/articles/what-are-the-four-types-of-deserts.html
+	// +kubebuilder:validation:Enum:=HotAndDry;Semiarid;Coastal;Cold
+	Type string `json:"type"`
+
+	// +kubebuilder:validation:Enum:=Arriving;Landed;Surviving;Critical
+	// +kubebuilder:default:=Arriving
+	Traveler string `json:"traveler,omitempty"`
 }
 
 // DesertStatus defines the observed state of Desert
 type DesertStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// +kubebuilder:validation:Enum:=Arriving;Landed;Surviving;Critical
+	Traveler string `json:"traveler,omitempty"`
+
+	// +kubebuilder:validation:Minimum:=0
+	WaterLevel int `json:"waterLevel"`
 }
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+//+kubebuilder:storageversion
 
 // Desert is the Schema for the deserts API
 type Desert struct {

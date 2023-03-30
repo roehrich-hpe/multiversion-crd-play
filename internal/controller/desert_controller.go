@@ -24,7 +24,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 )
 
 // DesertReconciler reconciles a Desert object
@@ -50,7 +50,7 @@ func (r *DesertReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 	log := log.FromContext(ctx)
 	log.Info("Reconciling Desert")
 
-	desert := &dwsv1alpha1.Desert{}
+	desert := &dwsv1alpha.Desert{}
 	if err := r.Get(ctx, req.NamespacedName, desert); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
@@ -88,6 +88,6 @@ func (r *DesertReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 // SetupWithManager sets up the controller with the Manager.
 func (r *DesertReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&dwsv1alpha1.Desert{}).
+		For(&dwsv1alpha.Desert{}).
 		Complete(r)
 }

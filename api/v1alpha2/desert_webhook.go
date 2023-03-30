@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1alpha2
 
 import (
 	"k8s.io/apimachinery/pkg/runtime"
@@ -34,7 +34,7 @@ func (r *Desert) SetupWebhookWithManager(mgr ctrl.Manager) error {
 
 // TODO(user): EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 
-//+kubebuilder:webhook:path=/mutate-dws-cray-hpe-com-v1alpha1-desert,mutating=true,failurePolicy=fail,sideEffects=None,groups=dws.cray.hpe.com,resources=deserts,verbs=create;update,versions=v1alpha1,name=mdesert.kb.io,admissionReviewVersions=v1
+//+kubebuilder:webhook:path=/mutate-dws-cray-hpe-com-v1alpha2-desert,mutating=true,failurePolicy=fail,sideEffects=None,groups=dws.cray.hpe.com,resources=deserts,verbs=create;update,versions=v1alpha2,name=mdesert.kb.io,admissionReviewVersions=v1
 
 var _ webhook.Defaulter = &Desert{}
 
@@ -46,7 +46,7 @@ func (r *Desert) Default() {
 }
 
 // TODO(user): change verbs to "verbs=create;update;delete" if you want to enable deletion validation.
-//+kubebuilder:webhook:path=/validate-dws-cray-hpe-com-v1alpha1-desert,mutating=false,failurePolicy=fail,sideEffects=None,groups=dws.cray.hpe.com,resources=deserts,verbs=create;update,versions=v1alpha1,name=vdesert.kb.io,admissionReviewVersions=v1
+//+kubebuilder:webhook:path=/validate-dws-cray-hpe-com-v1alpha2-desert,mutating=false,failurePolicy=fail,sideEffects=None,groups=dws.cray.hpe.com,resources=deserts,verbs=create;update,versions=v1alpha2,name=vdesert.kb.io,admissionReviewVersions=v1
 
 var _ webhook.Validator = &Desert{}
 

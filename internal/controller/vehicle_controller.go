@@ -24,7 +24,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 )
 
 // VehicleReconciler reconciles a Vehicle object
@@ -50,7 +50,7 @@ func (r *VehicleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	log := log.FromContext(ctx)
 	log.Info("Reconciling Vehicle")
 
-	vehicle := &dwsv1alpha1.Vehicle{}
+	vehicle := &dwsv1alpha.Vehicle{}
 	if err := r.Get(ctx, req.NamespacedName, vehicle); err != nil {
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
@@ -70,6 +70,6 @@ func (r *VehicleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 // SetupWithManager sets up the controller with the Manager.
 func (r *VehicleReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&dwsv1alpha1.Vehicle{}).
+		For(&dwsv1alpha.Vehicle{}).
 		Complete(r)
 }

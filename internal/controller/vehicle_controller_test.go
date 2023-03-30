@@ -27,23 +27,23 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 )
 
 var _ = Describe("Vehicle Controller Test", func() {
 
 	var (
-		vehicle *dwsv1alpha1.Vehicle
+		vehicle *dwsv1alpha.Vehicle
 	)
 
 	BeforeEach(func() {
 		id := uuid.NewString()[0:8]
-		vehicle = &dwsv1alpha1.Vehicle{
+		vehicle = &dwsv1alpha.Vehicle{
 			ObjectMeta: metav1.ObjectMeta{
 				Name:      id,
 				Namespace: corev1.NamespaceDefault,
 			},
-			Spec: dwsv1alpha1.VehicleSpec{
+			Spec: dwsv1alpha.VehicleSpec{
 				Make: "Jeep",
 			},
 		}
