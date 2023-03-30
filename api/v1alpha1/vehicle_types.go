@@ -30,12 +30,20 @@ type VehicleSpec struct {
 
 	// Foo is an example field of Vehicle. Edit vehicle_types.go to remove/update
 	Foo string `json:"foo,omitempty"`
+
+	// Make requests a vehicle
+	// +kubebuilder:validation:Enum:=LandRover;Jeep;Toyota
+	Make string `json:"make"`
 }
 
 // VehicleStatus defines the observed state of Vehicle
 type VehicleStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// Make is the vehicle being used
+	// +kubebuilder:validation:Enum:=LandRover;Jeep;Toyota
+	Make string `json:"make"`
 }
 
 //+kubebuilder:object:root=true
