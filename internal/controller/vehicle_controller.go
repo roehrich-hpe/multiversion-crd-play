@@ -47,9 +47,22 @@ type VehicleReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.14.1/pkg/reconcile
 func (r *VehicleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := log.FromContext(ctx)
+	log.Info("Reconciling Vehicle")
 
-	// TODO(user): your logic here
+	vehicle := &dwsv1alpha1.Vehicle{}
+	if err := r.Get(ctx, req.NamespacedName, vehicle); err != nil {
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	if vehicle.Status.Make != vehicle.Spec.Make {
+		log.Info("assign vehicle", "make", vehicle.Spec.Make)
+		vehicle.Status.Make = vehicle.Spec.Make
+		if err := r.Status().Update(ctx, vehicle); err != nil {
+			log.Error(err, "unable to update vehicle status")
+			return ctrl.Result{}, err
+		}
+	}
 
 	return ctrl.Result{}, nil
 }
