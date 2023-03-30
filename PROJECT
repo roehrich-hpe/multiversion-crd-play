@@ -21,4 +21,13 @@ resources:
     defaulting: true
     validation: true
     webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: cray.hpe.com
+  group: dws
+  kind: Vehicle
+  path: github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1
+  version: v1alpha1
 version: "3"
