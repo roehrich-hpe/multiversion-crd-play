@@ -1,0 +1,12 @@
+apiVersion: dws.cray.hpe.com/v1alpha2
+kind: Vehicle
+metadata:
+  labels:
+    app.kubernetes.io/name: vehicle
+    app.kubernetes.io/instance: vehicle-sample
+    app.kubernetes.io/part-of: multiversion-crd-play
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: multiversion-crd-play
+  name: vehicle-sample
+spec:
+  # TODO(user): Add fields here
