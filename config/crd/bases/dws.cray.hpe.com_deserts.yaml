@@ -177,6 +177,15 @@ spec:
                 description: Foo is an example field of Desert. Edit desert_types.go
                   to remove/update
                 type: string
+              tool:
+                default: None
+                description: Tool carried.
+                enum:
+                - Machete
+                - Hatchet
+                - Knife
+                - None
+                type: string
               traveler:
                 default: Arriving
                 enum:

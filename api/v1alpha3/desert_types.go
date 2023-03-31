@@ -43,6 +43,11 @@ type DesertSpec struct {
 	// +kubebuilder:validation:Minimum:=1
 	// +kubebuilder:default:=5
 	Days int `json:"days,omitempty"`
+
+	// Tool carried.
+	// +kubebuilder:validation:Enum:=Machete;Hatchet;Knife;None
+	// +kubebuilder:default:=None
+	Tool string `json:"tool,omitempty"`
 }
 
 // DesertStatus defines the observed state of Desert

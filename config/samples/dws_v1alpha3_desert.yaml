@@ -10,4 +10,5 @@ metadata:
   name: arctic
 spec:
   type: Cold
+  tool: Machete
 

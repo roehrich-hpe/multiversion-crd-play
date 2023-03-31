@@ -42,6 +42,7 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	}
 
 	dst.Spec.Days = restored.Spec.Days
+	dst.Spec.Tool = restored.Spec.Tool
 
 	return nil
 }

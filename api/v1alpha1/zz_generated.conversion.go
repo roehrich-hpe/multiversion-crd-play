@@ -207,6 +207,7 @@ func autoConvert_v1alpha3_DesertSpec_To_v1alpha1_DesertSpec(in *v1alpha3.DesertS
 	out.Type = in.Type
 	out.Traveler = in.Traveler
 	// WARNING: in.Days requires manual conversion: does not exist in peer-type
+	// WARNING: in.Tool requires manual conversion: does not exist in peer-type
 	return nil
 }
 
