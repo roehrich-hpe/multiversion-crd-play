@@ -21,7 +21,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	v1alpha3 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 	conversion "k8s.io/apimachinery/pkg/conversion"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
@@ -33,128 +33,128 @@ func init() {
 // RegisterConversions adds conversion functions to the given scheme.
 // Public to allow building arbitrary schemes.
 func RegisterConversions(s *runtime.Scheme) error {
-	if err := s.AddGeneratedConversionFunc((*Desert)(nil), (*v1alpha2.Desert)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_Desert_To_v1alpha2_Desert(a.(*Desert), b.(*v1alpha2.Desert), scope)
+	if err := s.AddGeneratedConversionFunc((*Desert)(nil), (*v1alpha3.Desert)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_Desert_To_v1alpha3_Desert(a.(*Desert), b.(*v1alpha3.Desert), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*v1alpha2.Desert)(nil), (*Desert)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_Desert_To_v1alpha1_Desert(a.(*v1alpha2.Desert), b.(*Desert), scope)
+	if err := s.AddGeneratedConversionFunc((*v1alpha3.Desert)(nil), (*Desert)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_Desert_To_v1alpha1_Desert(a.(*v1alpha3.Desert), b.(*Desert), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*DesertList)(nil), (*v1alpha2.DesertList)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_DesertList_To_v1alpha2_DesertList(a.(*DesertList), b.(*v1alpha2.DesertList), scope)
+	if err := s.AddGeneratedConversionFunc((*DesertList)(nil), (*v1alpha3.DesertList)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_DesertList_To_v1alpha3_DesertList(a.(*DesertList), b.(*v1alpha3.DesertList), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*v1alpha2.DesertList)(nil), (*DesertList)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_DesertList_To_v1alpha1_DesertList(a.(*v1alpha2.DesertList), b.(*DesertList), scope)
+	if err := s.AddGeneratedConversionFunc((*v1alpha3.DesertList)(nil), (*DesertList)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_DesertList_To_v1alpha1_DesertList(a.(*v1alpha3.DesertList), b.(*DesertList), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*DesertSpec)(nil), (*v1alpha2.DesertSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_DesertSpec_To_v1alpha2_DesertSpec(a.(*DesertSpec), b.(*v1alpha2.DesertSpec), scope)
+	if err := s.AddGeneratedConversionFunc((*DesertSpec)(nil), (*v1alpha3.DesertSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_DesertSpec_To_v1alpha3_DesertSpec(a.(*DesertSpec), b.(*v1alpha3.DesertSpec), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*DesertStatus)(nil), (*v1alpha2.DesertStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_DesertStatus_To_v1alpha2_DesertStatus(a.(*DesertStatus), b.(*v1alpha2.DesertStatus), scope)
+	if err := s.AddGeneratedConversionFunc((*DesertStatus)(nil), (*v1alpha3.DesertStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_DesertStatus_To_v1alpha3_DesertStatus(a.(*DesertStatus), b.(*v1alpha3.DesertStatus), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*v1alpha2.DesertStatus)(nil), (*DesertStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_DesertStatus_To_v1alpha1_DesertStatus(a.(*v1alpha2.DesertStatus), b.(*DesertStatus), scope)
+	if err := s.AddGeneratedConversionFunc((*v1alpha3.DesertStatus)(nil), (*DesertStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_DesertStatus_To_v1alpha1_DesertStatus(a.(*v1alpha3.DesertStatus), b.(*DesertStatus), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*Vehicle)(nil), (*v1alpha2.Vehicle)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_Vehicle_To_v1alpha2_Vehicle(a.(*Vehicle), b.(*v1alpha2.Vehicle), scope)
+	if err := s.AddGeneratedConversionFunc((*Vehicle)(nil), (*v1alpha3.Vehicle)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_Vehicle_To_v1alpha3_Vehicle(a.(*Vehicle), b.(*v1alpha3.Vehicle), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*v1alpha2.Vehicle)(nil), (*Vehicle)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_Vehicle_To_v1alpha1_Vehicle(a.(*v1alpha2.Vehicle), b.(*Vehicle), scope)
+	if err := s.AddGeneratedConversionFunc((*v1alpha3.Vehicle)(nil), (*Vehicle)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_Vehicle_To_v1alpha1_Vehicle(a.(*v1alpha3.Vehicle), b.(*Vehicle), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*VehicleList)(nil), (*v1alpha2.VehicleList)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_VehicleList_To_v1alpha2_VehicleList(a.(*VehicleList), b.(*v1alpha2.VehicleList), scope)
+	if err := s.AddGeneratedConversionFunc((*VehicleList)(nil), (*v1alpha3.VehicleList)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_VehicleList_To_v1alpha3_VehicleList(a.(*VehicleList), b.(*v1alpha3.VehicleList), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*v1alpha2.VehicleList)(nil), (*VehicleList)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_VehicleList_To_v1alpha1_VehicleList(a.(*v1alpha2.VehicleList), b.(*VehicleList), scope)
+	if err := s.AddGeneratedConversionFunc((*v1alpha3.VehicleList)(nil), (*VehicleList)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_VehicleList_To_v1alpha1_VehicleList(a.(*v1alpha3.VehicleList), b.(*VehicleList), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*VehicleSpec)(nil), (*v1alpha2.VehicleSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_VehicleSpec_To_v1alpha2_VehicleSpec(a.(*VehicleSpec), b.(*v1alpha2.VehicleSpec), scope)
+	if err := s.AddGeneratedConversionFunc((*VehicleSpec)(nil), (*v1alpha3.VehicleSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_VehicleSpec_To_v1alpha3_VehicleSpec(a.(*VehicleSpec), b.(*v1alpha3.VehicleSpec), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*v1alpha2.VehicleSpec)(nil), (*VehicleSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_VehicleSpec_To_v1alpha1_VehicleSpec(a.(*v1alpha2.VehicleSpec), b.(*VehicleSpec), scope)
+	if err := s.AddGeneratedConversionFunc((*v1alpha3.VehicleSpec)(nil), (*VehicleSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_VehicleSpec_To_v1alpha1_VehicleSpec(a.(*v1alpha3.VehicleSpec), b.(*VehicleSpec), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*VehicleStatus)(nil), (*v1alpha2.VehicleStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha1_VehicleStatus_To_v1alpha2_VehicleStatus(a.(*VehicleStatus), b.(*v1alpha2.VehicleStatus), scope)
+	if err := s.AddGeneratedConversionFunc((*VehicleStatus)(nil), (*v1alpha3.VehicleStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha1_VehicleStatus_To_v1alpha3_VehicleStatus(a.(*VehicleStatus), b.(*v1alpha3.VehicleStatus), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddConversionFunc((*v1alpha2.DesertSpec)(nil), (*DesertSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(a.(*v1alpha2.DesertSpec), b.(*DesertSpec), scope)
+	if err := s.AddConversionFunc((*v1alpha3.DesertSpec)(nil), (*DesertSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_DesertSpec_To_v1alpha1_DesertSpec(a.(*v1alpha3.DesertSpec), b.(*DesertSpec), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddConversionFunc((*v1alpha2.VehicleStatus)(nil), (*VehicleStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus(a.(*v1alpha2.VehicleStatus), b.(*VehicleStatus), scope)
+	if err := s.AddConversionFunc((*v1alpha3.VehicleStatus)(nil), (*VehicleStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha3_VehicleStatus_To_v1alpha1_VehicleStatus(a.(*v1alpha3.VehicleStatus), b.(*VehicleStatus), scope)
 	}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func autoConvert_v1alpha1_Desert_To_v1alpha2_Desert(in *Desert, out *v1alpha2.Desert, s conversion.Scope) error {
+func autoConvert_v1alpha1_Desert_To_v1alpha3_Desert(in *Desert, out *v1alpha3.Desert, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
-	if err := Convert_v1alpha1_DesertSpec_To_v1alpha2_DesertSpec(&in.Spec, &out.Spec, s); err != nil {
+	if err := Convert_v1alpha1_DesertSpec_To_v1alpha3_DesertSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
-	if err := Convert_v1alpha1_DesertStatus_To_v1alpha2_DesertStatus(&in.Status, &out.Status, s); err != nil {
+	if err := Convert_v1alpha1_DesertStatus_To_v1alpha3_DesertStatus(&in.Status, &out.Status, s); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Convert_v1alpha1_Desert_To_v1alpha2_Desert is an autogenerated conversion function.
-func Convert_v1alpha1_Desert_To_v1alpha2_Desert(in *Desert, out *v1alpha2.Desert, s conversion.Scope) error {
-	return autoConvert_v1alpha1_Desert_To_v1alpha2_Desert(in, out, s)
+// Convert_v1alpha1_Desert_To_v1alpha3_Desert is an autogenerated conversion function.
+func Convert_v1alpha1_Desert_To_v1alpha3_Desert(in *Desert, out *v1alpha3.Desert, s conversion.Scope) error {
+	return autoConvert_v1alpha1_Desert_To_v1alpha3_Desert(in, out, s)
 }
 
-func autoConvert_v1alpha2_Desert_To_v1alpha1_Desert(in *v1alpha2.Desert, out *Desert, s conversion.Scope) error {
+func autoConvert_v1alpha3_Desert_To_v1alpha1_Desert(in *v1alpha3.Desert, out *Desert, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
-	if err := Convert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(&in.Spec, &out.Spec, s); err != nil {
+	if err := Convert_v1alpha3_DesertSpec_To_v1alpha1_DesertSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
-	if err := Convert_v1alpha2_DesertStatus_To_v1alpha1_DesertStatus(&in.Status, &out.Status, s); err != nil {
+	if err := Convert_v1alpha3_DesertStatus_To_v1alpha1_DesertStatus(&in.Status, &out.Status, s); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Convert_v1alpha2_Desert_To_v1alpha1_Desert is an autogenerated conversion function.
-func Convert_v1alpha2_Desert_To_v1alpha1_Desert(in *v1alpha2.Desert, out *Desert, s conversion.Scope) error {
-	return autoConvert_v1alpha2_Desert_To_v1alpha1_Desert(in, out, s)
+// Convert_v1alpha3_Desert_To_v1alpha1_Desert is an autogenerated conversion function.
+func Convert_v1alpha3_Desert_To_v1alpha1_Desert(in *v1alpha3.Desert, out *Desert, s conversion.Scope) error {
+	return autoConvert_v1alpha3_Desert_To_v1alpha1_Desert(in, out, s)
 }
 
-func autoConvert_v1alpha1_DesertList_To_v1alpha2_DesertList(in *DesertList, out *v1alpha2.DesertList, s conversion.Scope) error {
+func autoConvert_v1alpha1_DesertList_To_v1alpha3_DesertList(in *DesertList, out *v1alpha3.DesertList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
 	if in.Items != nil {
 		in, out := &in.Items, &out.Items
-		*out = make([]v1alpha2.Desert, len(*in))
+		*out = make([]v1alpha3.Desert, len(*in))
 		for i := range *in {
-			if err := Convert_v1alpha1_Desert_To_v1alpha2_Desert(&(*in)[i], &(*out)[i], s); err != nil {
+			if err := Convert_v1alpha1_Desert_To_v1alpha3_Desert(&(*in)[i], &(*out)[i], s); err != nil {
 				return err
 			}
 		}
@@ -164,18 +164,18 @@ func autoConvert_v1alpha1_DesertList_To_v1alpha2_DesertList(in *DesertList, out 
 	return nil
 }
 
-// Convert_v1alpha1_DesertList_To_v1alpha2_DesertList is an autogenerated conversion function.
-func Convert_v1alpha1_DesertList_To_v1alpha2_DesertList(in *DesertList, out *v1alpha2.DesertList, s conversion.Scope) error {
-	return autoConvert_v1alpha1_DesertList_To_v1alpha2_DesertList(in, out, s)
+// Convert_v1alpha1_DesertList_To_v1alpha3_DesertList is an autogenerated conversion function.
+func Convert_v1alpha1_DesertList_To_v1alpha3_DesertList(in *DesertList, out *v1alpha3.DesertList, s conversion.Scope) error {
+	return autoConvert_v1alpha1_DesertList_To_v1alpha3_DesertList(in, out, s)
 }
 
-func autoConvert_v1alpha2_DesertList_To_v1alpha1_DesertList(in *v1alpha2.DesertList, out *DesertList, s conversion.Scope) error {
+func autoConvert_v1alpha3_DesertList_To_v1alpha1_DesertList(in *v1alpha3.DesertList, out *DesertList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
 	if in.Items != nil {
 		in, out := &in.Items, &out.Items
 		*out = make([]Desert, len(*in))
 		for i := range *in {
-			if err := Convert_v1alpha2_Desert_To_v1alpha1_Desert(&(*in)[i], &(*out)[i], s); err != nil {
+			if err := Convert_v1alpha3_Desert_To_v1alpha1_Desert(&(*in)[i], &(*out)[i], s); err != nil {
 				return err
 			}
 		}
@@ -185,24 +185,24 @@ func autoConvert_v1alpha2_DesertList_To_v1alpha1_DesertList(in *v1alpha2.DesertL
 	return nil
 }
 
-// Convert_v1alpha2_DesertList_To_v1alpha1_DesertList is an autogenerated conversion function.
-func Convert_v1alpha2_DesertList_To_v1alpha1_DesertList(in *v1alpha2.DesertList, out *DesertList, s conversion.Scope) error {
-	return autoConvert_v1alpha2_DesertList_To_v1alpha1_DesertList(in, out, s)
+// Convert_v1alpha3_DesertList_To_v1alpha1_DesertList is an autogenerated conversion function.
+func Convert_v1alpha3_DesertList_To_v1alpha1_DesertList(in *v1alpha3.DesertList, out *DesertList, s conversion.Scope) error {
+	return autoConvert_v1alpha3_DesertList_To_v1alpha1_DesertList(in, out, s)
 }
 
-func autoConvert_v1alpha1_DesertSpec_To_v1alpha2_DesertSpec(in *DesertSpec, out *v1alpha2.DesertSpec, s conversion.Scope) error {
+func autoConvert_v1alpha1_DesertSpec_To_v1alpha3_DesertSpec(in *DesertSpec, out *v1alpha3.DesertSpec, s conversion.Scope) error {
 	out.Foo = in.Foo
 	out.Type = in.Type
 	out.Traveler = in.Traveler
 	return nil
 }
 
-// Convert_v1alpha1_DesertSpec_To_v1alpha2_DesertSpec is an autogenerated conversion function.
-func Convert_v1alpha1_DesertSpec_To_v1alpha2_DesertSpec(in *DesertSpec, out *v1alpha2.DesertSpec, s conversion.Scope) error {
-	return autoConvert_v1alpha1_DesertSpec_To_v1alpha2_DesertSpec(in, out, s)
+// Convert_v1alpha1_DesertSpec_To_v1alpha3_DesertSpec is an autogenerated conversion function.
+func Convert_v1alpha1_DesertSpec_To_v1alpha3_DesertSpec(in *DesertSpec, out *v1alpha3.DesertSpec, s conversion.Scope) error {
+	return autoConvert_v1alpha1_DesertSpec_To_v1alpha3_DesertSpec(in, out, s)
 }
 
-func autoConvert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(in *v1alpha2.DesertSpec, out *DesertSpec, s conversion.Scope) error {
+func autoConvert_v1alpha3_DesertSpec_To_v1alpha1_DesertSpec(in *v1alpha3.DesertSpec, out *DesertSpec, s conversion.Scope) error {
 	out.Foo = in.Foo
 	out.Type = in.Type
 	out.Traveler = in.Traveler
@@ -210,67 +210,67 @@ func autoConvert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(in *v1alpha2.DesertS
 	return nil
 }
 
-func autoConvert_v1alpha1_DesertStatus_To_v1alpha2_DesertStatus(in *DesertStatus, out *v1alpha2.DesertStatus, s conversion.Scope) error {
+func autoConvert_v1alpha1_DesertStatus_To_v1alpha3_DesertStatus(in *DesertStatus, out *v1alpha3.DesertStatus, s conversion.Scope) error {
 	out.Traveler = in.Traveler
 	out.WaterLevel = in.WaterLevel
 	return nil
 }
 
-// Convert_v1alpha1_DesertStatus_To_v1alpha2_DesertStatus is an autogenerated conversion function.
-func Convert_v1alpha1_DesertStatus_To_v1alpha2_DesertStatus(in *DesertStatus, out *v1alpha2.DesertStatus, s conversion.Scope) error {
-	return autoConvert_v1alpha1_DesertStatus_To_v1alpha2_DesertStatus(in, out, s)
+// Convert_v1alpha1_DesertStatus_To_v1alpha3_DesertStatus is an autogenerated conversion function.
+func Convert_v1alpha1_DesertStatus_To_v1alpha3_DesertStatus(in *DesertStatus, out *v1alpha3.DesertStatus, s conversion.Scope) error {
+	return autoConvert_v1alpha1_DesertStatus_To_v1alpha3_DesertStatus(in, out, s)
 }
 
-func autoConvert_v1alpha2_DesertStatus_To_v1alpha1_DesertStatus(in *v1alpha2.DesertStatus, out *DesertStatus, s conversion.Scope) error {
+func autoConvert_v1alpha3_DesertStatus_To_v1alpha1_DesertStatus(in *v1alpha3.DesertStatus, out *DesertStatus, s conversion.Scope) error {
 	out.Traveler = in.Traveler
 	out.WaterLevel = in.WaterLevel
 	return nil
 }
 
-// Convert_v1alpha2_DesertStatus_To_v1alpha1_DesertStatus is an autogenerated conversion function.
-func Convert_v1alpha2_DesertStatus_To_v1alpha1_DesertStatus(in *v1alpha2.DesertStatus, out *DesertStatus, s conversion.Scope) error {
-	return autoConvert_v1alpha2_DesertStatus_To_v1alpha1_DesertStatus(in, out, s)
+// Convert_v1alpha3_DesertStatus_To_v1alpha1_DesertStatus is an autogenerated conversion function.
+func Convert_v1alpha3_DesertStatus_To_v1alpha1_DesertStatus(in *v1alpha3.DesertStatus, out *DesertStatus, s conversion.Scope) error {
+	return autoConvert_v1alpha3_DesertStatus_To_v1alpha1_DesertStatus(in, out, s)
 }
 
-func autoConvert_v1alpha1_Vehicle_To_v1alpha2_Vehicle(in *Vehicle, out *v1alpha2.Vehicle, s conversion.Scope) error {
+func autoConvert_v1alpha1_Vehicle_To_v1alpha3_Vehicle(in *Vehicle, out *v1alpha3.Vehicle, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
-	if err := Convert_v1alpha1_VehicleSpec_To_v1alpha2_VehicleSpec(&in.Spec, &out.Spec, s); err != nil {
+	if err := Convert_v1alpha1_VehicleSpec_To_v1alpha3_VehicleSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
-	if err := Convert_v1alpha1_VehicleStatus_To_v1alpha2_VehicleStatus(&in.Status, &out.Status, s); err != nil {
+	if err := Convert_v1alpha1_VehicleStatus_To_v1alpha3_VehicleStatus(&in.Status, &out.Status, s); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Convert_v1alpha1_Vehicle_To_v1alpha2_Vehicle is an autogenerated conversion function.
-func Convert_v1alpha1_Vehicle_To_v1alpha2_Vehicle(in *Vehicle, out *v1alpha2.Vehicle, s conversion.Scope) error {
-	return autoConvert_v1alpha1_Vehicle_To_v1alpha2_Vehicle(in, out, s)
+// Convert_v1alpha1_Vehicle_To_v1alpha3_Vehicle is an autogenerated conversion function.
+func Convert_v1alpha1_Vehicle_To_v1alpha3_Vehicle(in *Vehicle, out *v1alpha3.Vehicle, s conversion.Scope) error {
+	return autoConvert_v1alpha1_Vehicle_To_v1alpha3_Vehicle(in, out, s)
 }
 
-func autoConvert_v1alpha2_Vehicle_To_v1alpha1_Vehicle(in *v1alpha2.Vehicle, out *Vehicle, s conversion.Scope) error {
+func autoConvert_v1alpha3_Vehicle_To_v1alpha1_Vehicle(in *v1alpha3.Vehicle, out *Vehicle, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
-	if err := Convert_v1alpha2_VehicleSpec_To_v1alpha1_VehicleSpec(&in.Spec, &out.Spec, s); err != nil {
+	if err := Convert_v1alpha3_VehicleSpec_To_v1alpha1_VehicleSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
-	if err := Convert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus(&in.Status, &out.Status, s); err != nil {
+	if err := Convert_v1alpha3_VehicleStatus_To_v1alpha1_VehicleStatus(&in.Status, &out.Status, s); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Convert_v1alpha2_Vehicle_To_v1alpha1_Vehicle is an autogenerated conversion function.
-func Convert_v1alpha2_Vehicle_To_v1alpha1_Vehicle(in *v1alpha2.Vehicle, out *Vehicle, s conversion.Scope) error {
-	return autoConvert_v1alpha2_Vehicle_To_v1alpha1_Vehicle(in, out, s)
+// Convert_v1alpha3_Vehicle_To_v1alpha1_Vehicle is an autogenerated conversion function.
+func Convert_v1alpha3_Vehicle_To_v1alpha1_Vehicle(in *v1alpha3.Vehicle, out *Vehicle, s conversion.Scope) error {
+	return autoConvert_v1alpha3_Vehicle_To_v1alpha1_Vehicle(in, out, s)
 }
 
-func autoConvert_v1alpha1_VehicleList_To_v1alpha2_VehicleList(in *VehicleList, out *v1alpha2.VehicleList, s conversion.Scope) error {
+func autoConvert_v1alpha1_VehicleList_To_v1alpha3_VehicleList(in *VehicleList, out *v1alpha3.VehicleList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
 	if in.Items != nil {
 		in, out := &in.Items, &out.Items
-		*out = make([]v1alpha2.Vehicle, len(*in))
+		*out = make([]v1alpha3.Vehicle, len(*in))
 		for i := range *in {
-			if err := Convert_v1alpha1_Vehicle_To_v1alpha2_Vehicle(&(*in)[i], &(*out)[i], s); err != nil {
+			if err := Convert_v1alpha1_Vehicle_To_v1alpha3_Vehicle(&(*in)[i], &(*out)[i], s); err != nil {
 				return err
 			}
 		}
@@ -280,18 +280,18 @@ func autoConvert_v1alpha1_VehicleList_To_v1alpha2_VehicleList(in *VehicleList, o
 	return nil
 }
 
-// Convert_v1alpha1_VehicleList_To_v1alpha2_VehicleList is an autogenerated conversion function.
-func Convert_v1alpha1_VehicleList_To_v1alpha2_VehicleList(in *VehicleList, out *v1alpha2.VehicleList, s conversion.Scope) error {
-	return autoConvert_v1alpha1_VehicleList_To_v1alpha2_VehicleList(in, out, s)
+// Convert_v1alpha1_VehicleList_To_v1alpha3_VehicleList is an autogenerated conversion function.
+func Convert_v1alpha1_VehicleList_To_v1alpha3_VehicleList(in *VehicleList, out *v1alpha3.VehicleList, s conversion.Scope) error {
+	return autoConvert_v1alpha1_VehicleList_To_v1alpha3_VehicleList(in, out, s)
 }
 
-func autoConvert_v1alpha2_VehicleList_To_v1alpha1_VehicleList(in *v1alpha2.VehicleList, out *VehicleList, s conversion.Scope) error {
+func autoConvert_v1alpha3_VehicleList_To_v1alpha1_VehicleList(in *v1alpha3.VehicleList, out *VehicleList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
 	if in.Items != nil {
 		in, out := &in.Items, &out.Items
 		*out = make([]Vehicle, len(*in))
 		for i := range *in {
-			if err := Convert_v1alpha2_Vehicle_To_v1alpha1_Vehicle(&(*in)[i], &(*out)[i], s); err != nil {
+			if err := Convert_v1alpha3_Vehicle_To_v1alpha1_Vehicle(&(*in)[i], &(*out)[i], s); err != nil {
 				return err
 			}
 		}
@@ -301,44 +301,44 @@ func autoConvert_v1alpha2_VehicleList_To_v1alpha1_VehicleList(in *v1alpha2.Vehic
 	return nil
 }
 
-// Convert_v1alpha2_VehicleList_To_v1alpha1_VehicleList is an autogenerated conversion function.
-func Convert_v1alpha2_VehicleList_To_v1alpha1_VehicleList(in *v1alpha2.VehicleList, out *VehicleList, s conversion.Scope) error {
-	return autoConvert_v1alpha2_VehicleList_To_v1alpha1_VehicleList(in, out, s)
+// Convert_v1alpha3_VehicleList_To_v1alpha1_VehicleList is an autogenerated conversion function.
+func Convert_v1alpha3_VehicleList_To_v1alpha1_VehicleList(in *v1alpha3.VehicleList, out *VehicleList, s conversion.Scope) error {
+	return autoConvert_v1alpha3_VehicleList_To_v1alpha1_VehicleList(in, out, s)
 }
 
-func autoConvert_v1alpha1_VehicleSpec_To_v1alpha2_VehicleSpec(in *VehicleSpec, out *v1alpha2.VehicleSpec, s conversion.Scope) error {
+func autoConvert_v1alpha1_VehicleSpec_To_v1alpha3_VehicleSpec(in *VehicleSpec, out *v1alpha3.VehicleSpec, s conversion.Scope) error {
 	out.Foo = in.Foo
 	out.Make = in.Make
 	return nil
 }
 
-// Convert_v1alpha1_VehicleSpec_To_v1alpha2_VehicleSpec is an autogenerated conversion function.
-func Convert_v1alpha1_VehicleSpec_To_v1alpha2_VehicleSpec(in *VehicleSpec, out *v1alpha2.VehicleSpec, s conversion.Scope) error {
-	return autoConvert_v1alpha1_VehicleSpec_To_v1alpha2_VehicleSpec(in, out, s)
+// Convert_v1alpha1_VehicleSpec_To_v1alpha3_VehicleSpec is an autogenerated conversion function.
+func Convert_v1alpha1_VehicleSpec_To_v1alpha3_VehicleSpec(in *VehicleSpec, out *v1alpha3.VehicleSpec, s conversion.Scope) error {
+	return autoConvert_v1alpha1_VehicleSpec_To_v1alpha3_VehicleSpec(in, out, s)
 }
 
-func autoConvert_v1alpha2_VehicleSpec_To_v1alpha1_VehicleSpec(in *v1alpha2.VehicleSpec, out *VehicleSpec, s conversion.Scope) error {
+func autoConvert_v1alpha3_VehicleSpec_To_v1alpha1_VehicleSpec(in *v1alpha3.VehicleSpec, out *VehicleSpec, s conversion.Scope) error {
 	out.Foo = in.Foo
 	out.Make = in.Make
 	return nil
 }
 
-// Convert_v1alpha2_VehicleSpec_To_v1alpha1_VehicleSpec is an autogenerated conversion function.
-func Convert_v1alpha2_VehicleSpec_To_v1alpha1_VehicleSpec(in *v1alpha2.VehicleSpec, out *VehicleSpec, s conversion.Scope) error {
-	return autoConvert_v1alpha2_VehicleSpec_To_v1alpha1_VehicleSpec(in, out, s)
+// Convert_v1alpha3_VehicleSpec_To_v1alpha1_VehicleSpec is an autogenerated conversion function.
+func Convert_v1alpha3_VehicleSpec_To_v1alpha1_VehicleSpec(in *v1alpha3.VehicleSpec, out *VehicleSpec, s conversion.Scope) error {
+	return autoConvert_v1alpha3_VehicleSpec_To_v1alpha1_VehicleSpec(in, out, s)
 }
 
-func autoConvert_v1alpha1_VehicleStatus_To_v1alpha2_VehicleStatus(in *VehicleStatus, out *v1alpha2.VehicleStatus, s conversion.Scope) error {
+func autoConvert_v1alpha1_VehicleStatus_To_v1alpha3_VehicleStatus(in *VehicleStatus, out *v1alpha3.VehicleStatus, s conversion.Scope) error {
 	out.Make = in.Make
 	return nil
 }
 
-// Convert_v1alpha1_VehicleStatus_To_v1alpha2_VehicleStatus is an autogenerated conversion function.
-func Convert_v1alpha1_VehicleStatus_To_v1alpha2_VehicleStatus(in *VehicleStatus, out *v1alpha2.VehicleStatus, s conversion.Scope) error {
-	return autoConvert_v1alpha1_VehicleStatus_To_v1alpha2_VehicleStatus(in, out, s)
+// Convert_v1alpha1_VehicleStatus_To_v1alpha3_VehicleStatus is an autogenerated conversion function.
+func Convert_v1alpha1_VehicleStatus_To_v1alpha3_VehicleStatus(in *VehicleStatus, out *v1alpha3.VehicleStatus, s conversion.Scope) error {
+	return autoConvert_v1alpha1_VehicleStatus_To_v1alpha3_VehicleStatus(in, out, s)
 }
 
-func autoConvert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus(in *v1alpha2.VehicleStatus, out *VehicleStatus, s conversion.Scope) error {
+func autoConvert_v1alpha3_VehicleStatus_To_v1alpha1_VehicleStatus(in *v1alpha3.VehicleStatus, out *VehicleStatus, s conversion.Scope) error {
 	out.Make = in.Make
 	// WARNING: in.Tires requires manual conversion: does not exist in peer-type
 	return nil

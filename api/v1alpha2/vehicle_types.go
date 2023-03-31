@@ -52,7 +52,6 @@ type VehicleStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
-//+kubebuilder:storageversion
 
 // Vehicle is the Schema for the vehicles API
 type Vehicle struct {

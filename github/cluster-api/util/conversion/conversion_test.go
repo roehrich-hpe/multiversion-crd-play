@@ -25,7 +25,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 )
 
 var (

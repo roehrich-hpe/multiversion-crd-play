@@ -33,7 +33,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
-	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -70,6 +71,9 @@ var _ = BeforeSuite(func() {
 
 	var err error
 	err = dwsv1alpha1.AddToScheme(scheme.Scheme)
+	Expect(err).NotTo(HaveOccurred())
+
+	err = dwsv1alpha2.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	err = dwsv1alpha.AddToScheme(scheme.Scheme)

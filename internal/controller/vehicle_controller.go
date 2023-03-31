@@ -24,7 +24,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 )
 
 // VehicleReconciler reconciles a Vehicle object

@@ -17,4 +17,4 @@ limitations under the License.
 // The following tag tells conversion-gen to generate conversion routines, and
 // it tells conversion-gen the name of the hub version.
 // +k8s:conversion-gen=github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3
-package v1alpha1
+package v1alpha2

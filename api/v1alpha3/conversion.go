@@ -14,20 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha2
+package v1alpha3
 
-import (
-	ctrl "sigs.k8s.io/controller-runtime"
-	logf "sigs.k8s.io/controller-runtime/pkg/log"
-)
+func (*Desert) Hub()  {}
+func (*Vehicle) Hub() {}
 
-// log is for logging in this package.
-var vehiclelog = logf.Log.WithName("vehicle-resource")
-
-func (r *Vehicle) SetupWebhookWithManager(mgr ctrl.Manager) error {
-	return ctrl.NewWebhookManagedBy(mgr).
-		For(r).
-		Complete()
-}
-
-// TODO(user): EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
+// The conversion webhook never uses the List-based conversions, but the
+// conversion-verifier tool wants to see hubs for the Lists anyway.
+func (*DesertList) Hub()  {}
+func (*VehicleList) Hub() {}

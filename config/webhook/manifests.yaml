@@ -11,14 +11,14 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
-      path: /mutate-dws-cray-hpe-com-v1alpha2-desert
+      path: /mutate-dws-cray-hpe-com-v1alpha3-desert
   failurePolicy: Fail
   name: mdesert.kb.io
   rules:
   - apiGroups:
     - dws.cray.hpe.com
     apiVersions:
-    - v1alpha2
+    - v1alpha3
     operations:
     - CREATE
     - UPDATE
@@ -38,14 +38,14 @@ webhooks:
     service:
       name: webhook-service
       namespace: system
-      path: /validate-dws-cray-hpe-com-v1alpha2-desert
+      path: /validate-dws-cray-hpe-com-v1alpha3-desert
   failurePolicy: Fail
   name: vdesert.kb.io
   rules:
   - apiGroups:
     - dws.cray.hpe.com
     apiVersions:
-    - v1alpha2
+    - v1alpha3
     operations:
     - CREATE
     - UPDATE

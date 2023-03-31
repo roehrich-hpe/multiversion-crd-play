@@ -28,7 +28,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
-	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha2 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha3"
 	utilconversion "github.com/roehrich-hpe/multiversion-crd-play/github/cluster-api/util/conversion"
 )
 
@@ -71,6 +72,20 @@ var _ = Describe("Vehicle Controller Test", func() {
 			// We have api/v1alpha1/conversion_test.go that is
 			// digging deep.
 			anno := vehicleV1.GetAnnotations()
+			g.Expect(anno).To(HaveLen(1))
+			g.Expect(anno).Should(HaveKey(utilconversion.DataAnnotation))
+		}).Should(Succeed())
+	})
+
+	It("reads a vehicle hub resource via the v1alpha2 spoke", func() {
+		vehicleV2 := &dwsv1alpha2.Vehicle{}
+
+		Eventually(func(g Gomega) {
+			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(vehicle), vehicleV2)).To(Succeed())
+			// Don't get deep into verifying the conversion.
+			// We have api/v1alpha2/conversion_test.go that is
+			// digging deep.
+			anno := vehicleV2.GetAnnotations()
 			g.Expect(anno).To(HaveLen(1))
 			g.Expect(anno).Should(HaveKey(utilconversion.DataAnnotation))
 		}).Should(Succeed())
