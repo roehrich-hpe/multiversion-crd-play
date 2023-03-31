@@ -44,6 +44,10 @@ type VehicleStatus struct {
 	// Make is the vehicle being used
 	// +kubebuilder:validation:Enum:=LandRover;Jeep;Toyota
 	Make string `json:"make"`
+
+	// Tires indicates the condition of the tires
+	// +kubebuilder:validation:Enum:=New;Worn
+	Tires string `json:"tires"`
 }
 
 //+kubebuilder:object:root=true

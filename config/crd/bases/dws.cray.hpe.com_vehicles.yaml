@@ -111,8 +111,15 @@ spec:
                 - Jeep
                 - Toyota
                 type: string
+              tires:
+                description: Tires indicates the condition of the tires
+                enum:
+                - New
+                - Worn
+                type: string
             required:
             - make
+            - tires
             type: object
         type: object
     served: true

@@ -56,6 +56,7 @@ var _ = Describe("Desert Controller Test", func() {
 		Eventually(func(g Gomega) {
 			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desert), desert)).To(Succeed())
 			g.Expect(desert.Spec.Traveler).To(Equal("Arriving"))
+			g.Expect(desert.Spec.Days).To(Equal(5))
 			g.Expect(desert.Status.Traveler).To(Equal("Arriving"))
 		}).Should(Succeed())
 	})

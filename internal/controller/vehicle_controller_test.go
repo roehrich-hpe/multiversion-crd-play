@@ -55,6 +55,7 @@ var _ = Describe("Vehicle Controller Test", func() {
 		Eventually(func(g Gomega) {
 			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(vehicle), vehicle)).To(Succeed())
 			g.Expect(vehicle.Status.Make).To(Equal("Jeep"))
+			g.Expect(vehicle.Status.Tires).To(Equal("New"))
 		}).Should(Succeed())
 	})
 })

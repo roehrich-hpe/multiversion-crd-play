@@ -99,6 +99,11 @@ spec:
           spec:
             description: DesertSpec defines the desired state of Desert
             properties:
+              days:
+                default: 5
+                description: Set length of stay.
+                minimum: 1
+                type: integer
               foo:
                 description: Foo is an example field of Desert. Edit desert_types.go
                   to remove/update

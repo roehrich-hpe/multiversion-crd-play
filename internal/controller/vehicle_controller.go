@@ -56,8 +56,9 @@ func (r *VehicleReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	}
 
 	if vehicle.Status.Make != vehicle.Spec.Make {
-		log.Info("assign vehicle", "make", vehicle.Spec.Make)
 		vehicle.Status.Make = vehicle.Spec.Make
+		vehicle.Status.Tires = "New"
+		log.Info("assign vehicle", "make", vehicle.Spec.Make, "tires", vehicle.Status.Tires)
 		if err := r.Status().Update(ctx, vehicle); err != nil {
 			log.Error(err, "unable to update vehicle status")
 			return ctrl.Result{}, err
