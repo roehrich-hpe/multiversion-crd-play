@@ -18,3 +18,8 @@ package v1alpha2
 
 func (*Desert) Hub()  {}
 func (*Vehicle) Hub() {}
+
+// The conversion webhook never uses the List-based conversions, but the
+// conversion-verifier tool wants to see hubs for the Lists anyway.
+func (*DesertList) Hub()  {}
+func (*VehicleList) Hub() {}

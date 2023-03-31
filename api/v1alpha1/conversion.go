@@ -89,6 +89,37 @@ func (dst *Vehicle) ConvertFrom(srcRaw conversion.Hub) error {
 	return utilconversion.MarshalData(src, dst)
 }
 
+// The List-based ConvertTo/ConvertFrom routines are never used by the
+// conversion webhook, but the conversion-verifier tool wants to see them.
+
+func (src *DesertList) ConvertTo(dstRaw conversion.Hub) error {
+	convertlog.Info("Convert DesertList To Hub")
+	dst := dstRaw.(*dwsv1alpha.DesertList)
+
+	return Convert_v1alpha1_DesertList_To_v1alpha2_DesertList(src, dst, nil)
+}
+
+func (dst *DesertList) ConvertFrom(srcRaw conversion.Hub) error {
+	convertlog.Info("Convert DesertList From Hub")
+	src := srcRaw.(*dwsv1alpha.DesertList)
+
+	return Convert_v1alpha2_DesertList_To_v1alpha1_DesertList(src, dst, nil)
+}
+
+func (src *VehicleList) ConvertTo(dstRaw conversion.Hub) error {
+	convertlog.Info("Convert VehicleList To Hub")
+	dst := dstRaw.(*dwsv1alpha.VehicleList)
+
+	return Convert_v1alpha1_VehicleList_To_v1alpha2_VehicleList(src, dst, nil)
+}
+
+func (dst *VehicleList) ConvertFrom(srcRaw conversion.Hub) error {
+	convertlog.Info("Convert VehicleList From Hub")
+	src := srcRaw.(*dwsv1alpha.VehicleList)
+
+	return Convert_v1alpha2_VehicleList_To_v1alpha1_VehicleList(src, dst, nil)
+}
+
 func Convert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(in *dwsv1alpha.DesertSpec, out *DesertSpec, s apiconversion.Scope) error {
 	// Spec.Days was introduced in v1alpha2, so it needs a custom
 	// conversion function.  The value will be preserved in an annotation,
