@@ -21,6 +21,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	utilconversion "github.com/roehrich-hpe/multiversion-crd-play/github/cluster-api/util/conversion"
 )
 
 var convertlog = logf.Log.WithName("convert-v1alpha1")
@@ -38,6 +39,14 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	dst.Status.Traveler = src.Status.Traveler
 	dst.Status.WaterLevel = src.Status.WaterLevel
 
+	// Manually restore data.
+	restored := &dwsv1alpha.Desert{}
+	if ok, err := utilconversion.UnmarshalData(src, restored); err != nil || !ok {
+		return err
+	}
+
+	dst.Spec.Days = restored.Spec.Days
+
 	return nil
 }
 
@@ -54,7 +63,8 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 	dst.Status.Traveler = src.Status.Traveler
 	dst.Status.WaterLevel = src.Status.WaterLevel
 
-	return nil
+	// Preserve Hub data on down-conversion except for metadata
+	return utilconversion.MarshalData(src, dst)
 }
 
 func (src *Vehicle) ConvertTo(dstRaw conversion.Hub) error {
@@ -67,6 +77,14 @@ func (src *Vehicle) ConvertTo(dstRaw conversion.Hub) error {
 	dst.Spec.Make = src.Spec.Make
 
 	dst.Status.Make = src.Status.Make
+
+	// Manually restore data.
+	restored := &dwsv1alpha.Vehicle{}
+	if ok, err := utilconversion.UnmarshalData(src, restored); err != nil || !ok {
+		return err
+	}
+
+	dst.Status.Tires = restored.Status.Tires
 
 	return nil
 }
@@ -82,5 +100,6 @@ func (dst *Vehicle) ConvertFrom(srcRaw conversion.Hub) error {
 
 	dst.Status.Make = src.Status.Make
 
-	return nil
+	// Preserve Hub data on down-conversion except for metadata
+	return utilconversion.MarshalData(src, dst)
 }

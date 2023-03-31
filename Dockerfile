@@ -14,6 +14,7 @@ RUN go mod download
 # Copy the go source
 COPY cmd/main.go cmd/main.go
 COPY api/ api/
+COPY github/cluster-api/util/conversion/ github/cluster-api/util/conversion/
 COPY internal/controller/ internal/controller/
 
 # Build

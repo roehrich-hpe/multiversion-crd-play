@@ -29,6 +29,7 @@ import (
 
 	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
+	utilconversion "github.com/roehrich-hpe/multiversion-crd-play/github/cluster-api/util/conversion"
 )
 
 var _ = Describe("Desert Controller Test", func() {
@@ -58,6 +59,7 @@ var _ = Describe("Desert Controller Test", func() {
 			g.Expect(desert.Spec.Traveler).To(Equal("Arriving"))
 			g.Expect(desert.Spec.Days).To(Equal(5))
 			g.Expect(desert.Status.Traveler).To(Equal("Arriving"))
+			g.Expect(desert.GetAnnotations()).To(HaveLen(0))
 		}).Should(Succeed())
 	})
 
@@ -66,6 +68,12 @@ var _ = Describe("Desert Controller Test", func() {
 
 		Eventually(func(g Gomega) {
 			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desert), desertV1)).To(Succeed())
+			// Don't get deep into verifying the conversion.
+			// We have api/v1alpha1/conversion_test.go that is
+			// digging deep.
+			anno := desertV1.GetAnnotations()
+			g.Expect(anno).To(HaveLen(1))
+			g.Expect(anno).Should(HaveKey(utilconversion.DataAnnotation))
 		}).Should(Succeed())
 	})
 })
