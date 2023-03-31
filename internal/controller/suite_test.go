@@ -32,6 +32,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
+	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 	//+kubebuilder:scaffold:imports
 )
@@ -57,21 +58,45 @@ var _ = BeforeSuite(func() {
 	ctx, cancel = context.WithCancel(context.TODO())
 
 	By("bootstrapping test environment")
-	testEnv = &envtest.Environment{
-		CRDDirectoryPaths:     []string{filepath.Join("..", "..", "config", "crd", "bases")},
-		ErrorIfCRDPathMissing: true,
-	}
+
+	// See https://github.com/kubernetes-sigs/controller-runtime/issues/1882
+	// about getting the conversion webhook to register properly.
+	// Begin by relocating the code that builds the scheme, so it happens
+	// before calling envtest.Start().
+	// Then add the scheme to envtest.CRDInstallOptions.
+	//
+	// You need controller-runtime v0.9.0 or later to get conversion
+	// webhooks to work in envtest.
 
 	var err error
-	// cfg is defined in this file globally.
-	cfg, err = testEnv.Start()
+	err = dwsv1alpha1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
-	Expect(cfg).NotTo(BeNil())
 
 	err = dwsv1alpha.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	//+kubebuilder:scaffold:scheme
+
+	testEnv = &envtest.Environment{
+		WebhookInstallOptions: envtest.WebhookInstallOptions{
+			Paths: []string{filepath.Join("..", "..", "config", "webhook")},
+		},
+
+		CRDDirectoryPaths: []string{filepath.Join("..", "..", "config", "crd", "bases")},
+
+		CRDInstallOptions: envtest.CRDInstallOptions{
+			// This adds the conversion webhook configuration to
+			// the CRDs.
+			Scheme: scheme.Scheme,
+		},
+
+		ErrorIfCRDPathMissing: true,
+	}
+
+	// cfg is defined in this file globally.
+	cfg, err = testEnv.Start()
+	Expect(err).NotTo(HaveOccurred())
+	Expect(cfg).NotTo(BeNil())
 
 	k8sClient, err = client.New(cfg, client.Options{Scheme: scheme.Scheme})
 	Expect(err).NotTo(HaveOccurred())
@@ -99,6 +124,9 @@ var _ = BeforeSuite(func() {
 	Expect(err).ToNot(HaveOccurred())
 
 	err = (&dwsv1alpha.Desert{}).SetupWebhookWithManager(k8sManager)
+	Expect(err).ToNot(HaveOccurred())
+
+	err = (&dwsv1alpha.Vehicle{}).SetupWebhookWithManager(k8sManager)
 	Expect(err).ToNot(HaveOccurred())
 
 	go func() {

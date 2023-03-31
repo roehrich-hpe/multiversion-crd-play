@@ -109,7 +109,7 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Vehicle")
 		os.Exit(1)
 	}
-	if err = (&dwsv1alpha2.Vehicle{}).SetupWebhookWithManager(mgr); err != nil {
+	if err = (&dwsv1alpha.Vehicle{}).SetupWebhookWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create webhook", "webhook", "Vehicle")
 		os.Exit(1)
 	}

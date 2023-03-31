@@ -27,6 +27,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
+	dwsv1alpha1 "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha1"
 	dwsv1alpha "github.com/roehrich-hpe/multiversion-crd-play/api/v1alpha2"
 )
 
@@ -56,6 +57,14 @@ var _ = Describe("Desert Controller Test", func() {
 			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desert), desert)).To(Succeed())
 			g.Expect(desert.Spec.Traveler).To(Equal("Arriving"))
 			g.Expect(desert.Status.Traveler).To(Equal("Arriving"))
+		}).Should(Succeed())
+	})
+
+	It("reads a desert hub resource via the v1alpha1 spoke", func() {
+		desertV1 := &dwsv1alpha1.Desert{}
+
+		Eventually(func(g Gomega) {
+			g.Expect(k8sClient.Get(context.TODO(), client.ObjectKeyFromObject(desert), desertV1)).To(Succeed())
 		}).Should(Succeed())
 	})
 })
