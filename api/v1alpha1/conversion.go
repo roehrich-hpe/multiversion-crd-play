@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	apiconversion "k8s.io/apimachinery/pkg/conversion"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 
@@ -30,14 +31,9 @@ func (src *Desert) ConvertTo(dstRaw conversion.Hub) error {
 	convertlog.Info("Convert Desert To Hub")
 	dst := dstRaw.(*dwsv1alpha.Desert)
 
-	dst.ObjectMeta = src.ObjectMeta
-
-	dst.Spec.Foo = src.Spec.Foo
-	dst.Spec.Type = src.Spec.Type
-	dst.Spec.Traveler = src.Spec.Traveler
-
-	dst.Status.Traveler = src.Status.Traveler
-	dst.Status.WaterLevel = src.Status.WaterLevel
+	if err := Convert_v1alpha1_Desert_To_v1alpha2_Desert(src, dst, nil); err != nil {
+		return err
+	}
 
 	// Manually restore data.
 	restored := &dwsv1alpha.Desert{}
@@ -54,14 +50,9 @@ func (dst *Desert) ConvertFrom(srcRaw conversion.Hub) error {
 	convertlog.Info("Convert Desert From Hub")
 	src := srcRaw.(*dwsv1alpha.Desert)
 
-	dst.ObjectMeta = src.ObjectMeta
-
-	dst.Spec.Foo = src.Spec.Foo
-	dst.Spec.Type = src.Spec.Type
-	dst.Spec.Traveler = src.Spec.Traveler
-
-	dst.Status.Traveler = src.Status.Traveler
-	dst.Status.WaterLevel = src.Status.WaterLevel
+	if err := Convert_v1alpha2_Desert_To_v1alpha1_Desert(src, dst, nil); err != nil {
+		return err
+	}
 
 	// Preserve Hub data on down-conversion except for metadata
 	return utilconversion.MarshalData(src, dst)
@@ -71,12 +62,9 @@ func (src *Vehicle) ConvertTo(dstRaw conversion.Hub) error {
 	convertlog.Info("Convert Vehicle To Hub")
 	dst := dstRaw.(*dwsv1alpha.Vehicle)
 
-	dst.ObjectMeta = src.ObjectMeta
-
-	dst.Spec.Foo = src.Spec.Foo
-	dst.Spec.Make = src.Spec.Make
-
-	dst.Status.Make = src.Status.Make
+	if err := Convert_v1alpha1_Vehicle_To_v1alpha2_Vehicle(src, dst, nil); err != nil {
+		return err
+	}
 
 	// Manually restore data.
 	restored := &dwsv1alpha.Vehicle{}
@@ -93,13 +81,46 @@ func (dst *Vehicle) ConvertFrom(srcRaw conversion.Hub) error {
 	convertlog.Info("Convert Vehicle From Hub")
 	src := srcRaw.(*dwsv1alpha.Vehicle)
 
-	dst.ObjectMeta = src.ObjectMeta
-
-	dst.Spec.Foo = src.Spec.Foo
-	dst.Spec.Make = src.Spec.Make
-
-	dst.Status.Make = src.Status.Make
+	if err := Convert_v1alpha2_Vehicle_To_v1alpha1_Vehicle(src, dst, nil); err != nil {
+		return err
+	}
 
 	// Preserve Hub data on down-conversion except for metadata
 	return utilconversion.MarshalData(src, dst)
+}
+
+func Convert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(in *dwsv1alpha.DesertSpec, out *DesertSpec, s apiconversion.Scope) error {
+	// Spec.Days was introduced in v1alpha2, so it needs a custom
+	// conversion function.  The value will be preserved in an annotation,
+	// allowing roundtrip without losing information.
+
+	// The conversion-gen tool printed a warning about this.  Also see the
+	// warning it placed in
+	// autoConvert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec()
+	// in zz_generated.conversion.go.
+
+	// The conversion-gen tool creates all the parts, but in this case it
+	// omitted Convert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(),
+	// forcing us to acknowledge that we are handling the conversion for
+	// Spec.Days.
+
+	return autoConvert_v1alpha2_DesertSpec_To_v1alpha1_DesertSpec(in, out, s)
+}
+
+func Convert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus(in *dwsv1alpha.VehicleStatus, out *VehicleStatus, s apiconversion.Scope) error {
+	// Status.Tires was introduced in v1alpha2, so it needs a custom
+	// conversion function.  The value will be preserved in an annotation,
+	// allowing roundtrip without losing information.
+
+	// The conversion-gen tool printed a warning about this.  Also see the
+	// warning it placed in
+	// autoConvert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus()
+	// in zz_generated.conversion.go.
+
+	// The conversion-gen tool creates all the parts, but in this case it
+	// omitted Convert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus(),
+	// forcing us to acknowledge that we are handling the conversion for
+	// Status.Tires.
+
+	return autoConvert_v1alpha2_VehicleStatus_To_v1alpha1_VehicleStatus(in, out, s)
 }
