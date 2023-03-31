@@ -4,4 +4,6 @@ resources:
 - dws_v1alpha1_vehicle.yaml
 - dws_v1alpha2_desert.yaml
 - dws_v1alpha2_vehicle.yaml
+- dws_v1alpha3_desert.yaml
+- dws_v1alpha3_vehicle.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples
